@@ -1,0 +1,11 @@
+{
+"model":"LFA_21",
+"shock":"High_initial_infections",
+"data":{
+"Consumption":-0.0023345947265625,
+"Labour":-0.0023345947265625,
+"Output":-0.0023345947265625,
+"Susceptibles":0.58543005981445306,
+"Infected":0,
+"Recovered":0.41223534545898438,
+"Deaths":0.0032813215179443357}}

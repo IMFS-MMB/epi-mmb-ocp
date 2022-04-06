@@ -1,0 +1,11 @@
+{
+"model":"KUX_20",
+"shock":"Medium_initial_infections",
+"data":{
+"Consumption":0,
+"Labour":0,
+"Output":0,
+"Susceptibles":1,
+"Infected":0,
+"Recovered":0,
+"Deaths":0}}

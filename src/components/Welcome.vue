@@ -7,16 +7,13 @@
     </div>
 
     <div class="p-8 bg-transparent relative z-1 space-y-4">
-      <h3 class="text-2xl text-gray-900 mb-4">Epi MMB OCP</h3>
+      <h3 class="text-2xl text-gray-900 mb-4">Epi-MMB online comparison platform (OCP)</h3>
 
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid
-        atque consectetur consequuntur, corporis eaque hic impedit laudantium,
-        necessitatibus nostrum officiis temporibus voluptatem. Animi dignissimos
-        incidunt neque pariatur vero voluptatem. Aut corporis, cupiditate
-        dignissimos eos natus, placeat quibusdam recusandae sed sint soluta
-        tempora veniam? Delectus dolores dolorum eius enim, et excepturi id
-        illum inventore laudantium porro provident quas sed tenetur.
+        Welcome to the Epi-MMB online comparison platform. 
+      </p>
+      <p>
+        The platform provides a comparison of many epi-macro models with standardized shock sizes. The shown results are pre-simulated.  
       </p>
 
       <div class="flex justify-center py-12">
@@ -28,53 +25,17 @@
       </div>
 
       <div>
-        Alias atque aut autem commodi culpa dolore enim excepturi iste iusto
-        laudantium nobis omnis optio provident quae quas rem reprehenderit saepe
-        soluta, temporibus velit veritatis vero vitae voluptate, voluptatem
-        voluptatum.
+        The results will be displayed in a weekly frequency.
+      </div>  
+      <div>
+         In the top right corner of the model section you can filter the models by features to make your comparison easier.
       </div>
       <div>
-        Eos est facere fuga illum provident recusandae temporibus voluptatum.
-        Blanditiis consectetur dolor doloremque eum maxime nulla vel.
-        Accusantium dignissimos eaque et illum natus, nesciunt nobis possimus
-        praesentium repellendus repudiandae velit?
+         In the shocks section you can choose from different sizes of the share of initially infected people. If you choose the model-specific shock size, initial infections are set according to the value in the paper. Comparison of the results might be tougher. 
       </div>
       <div>
-        Aspernatur deleniti dicta, fugiat necessitatibus perferendis quae sint
-        unde? Accusamus autem, beatae cum cupiditate dicta ea enim fugiat
-        impedit itaque iure nesciunt omnis sapiente, sequi similique vel, veniam
-        vitae voluptatibus.
-      </div>
-      <div>
-        Amet architecto, assumenda autem deleniti distinctio doloribus ex
-        excepturi id illum modi nemo neque numquam officia, officiis omnis
-        perferendis placeat quasi quibusdam quis quisquam repellendus, vel vero.
-        Earum ipsa, quisquam!
-      </div>
-      <div>
-        Animi at culpa iure nihil optio perspiciatis placeat porro reiciendis
-        tempore temporibus. Animi blanditiis, consequuntur distinctio ducimus
-        laboriosam laudantium necessitatibus repudiandae! Aliquam aspernatur at
-        ex facere incidunt obcaecati, perferendis reiciendis.
-      </div>
-      <div>
-        Amet aspernatur commodi consequatur distinctio earum esse explicabo
-        fugiat harum id illum iste iusto labore magni neque optio pariatur
-        placeat porro quasi quidem quisquam ratione repellendus, saepe sapiente
-        voluptate voluptatem.
-      </div>
-      <div>
-        A, accusantium autem beatae corporis doloremque enim eveniet fugiat
-        itaque laboriosam laborum laudantium magnam molestiae nihil nisi
-        possimus, qui ratione recusandae repellendus repudiandae similique
-        suscipit, tempore voluptate. Et, perferendis, qui!
-      </div>
-      <div>
-        Consequatur dolor facere numquam odio possimus quas, recusandae sed.
-        Amet architecto consequuntur eligendi facere laborum laudantium, magnam
-        modi nostrum odio perspiciatis, quia sit ut voluptas! Accusantium eum
-        exercitationem odit veritatis?
-      </div>
+         In the variables section you can choose from a selection of standardized variables. All variables concerning the pandemic part of the model display the level of the variable, while all economic variables are defined as percentage deviations from the steady state values.
+      </div>      
     </div>
   </div>
 </template>

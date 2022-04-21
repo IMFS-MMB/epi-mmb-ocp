@@ -3,65 +3,64 @@ import { Model } from "./model";
 import { Shock } from "./shock";
 import { Variable } from "./variable";
 
-const featureA = "Feature A";
-const featureB = "Feature B";
-const featureC = "Feature C";
-const modelFeatures = ref([featureA, featureB, featureC]);
+const featureFP = "Fiscal Policy";
+const featureMP = "Monetary Policy";
+const featureFI = "Financial Intermediaries";
+const featureFE = "Firms entry/exit";
+const featureMC = "Multi Country";
+const featureHH = "Heterogeneous Households";
+const featureHF = "Heterogeneous Firms";
+const featureOFP = "Optimal Fiscal Policy";
+const featureOPP = "Optimal Pandemic Policy";
 
-const typeA = "TYPE A";
-const typeB = "TYPE B";
-const typeC = "TYPE C";
-const modelTypes = ref([typeA, typeB, typeC]);
+const modelFeatures = ref([featureFP, featureMP, featureFI,featureFE,featureMC,featureHH,featureHF,featureOFP,featureOPP]);
+
+const type0 = "Reduced From";
+const type1 = "One-way Interaction";
+const type2 = "Two-way Interaction";
+const modelTypes = ref([type0, type1, type2]);
 
 const models = ref<Model[]>([
-  { id: 1, name: "Model 1", type: typeA, features: [] },
-  { id: 2, name: "Model 2", type: typeA, features: [] },
+  { id: 1, name: "A_20", type: type1, features: [] },
+  { id: 2, name: "AAL_20", type: type2, features: [featureHF] },
+  { id: 3, name: "ACS_21", type: type2, features: [featureMP,featureFE] },
+  { id: 4, name: "AJRT_20", type: type2, features: [featureFP,featureMC] },
+  { id: 5, name: "BCG_21", type: type1, features: [featureHF] },
+  { id: 6, name: "BKST_21", type: type2, features: [featureHH] },
+  { id: 7, name: "CCGPRV_21", type: type0, features: [featureFP,featureMP,featureMC] },
+  { id: 8, name: "CDL_21", type: type2, features: [featureHH] },
+  { id: 9, name: "ERT_21_Epi", type: type2, features: [featureFP] },
+  { id: 10, name: "ERT_21_Ineq", type: type2, features: [featureFP,featureHH] },
+  { id: 11, name: "ERT_21_NK", type: type2, features: [featureFP,featureMP] },
+  { id: 12, name: "ERT_21_Test", type: type2, features: [] },
+  { id: 13, name: "F_21", type: type0, features: [featureFP,featureMP,featureFI,featureFE,featureHH] },
+  { id: 14, name: "GP_20", type: type2, features: [featureHH] },
+  { id: 15, name: "HKK_20", type: type2, features: [] },
+  { id: 16, name: "JPV_21", type: type2, features: [, ] },
+  { id: 17, name: "KUX_20", type: type2, features: [featureHF] },
+  { id: 18, name: "LFA_21", type: type2, features: [featureMP] },
+  { id: 19, name: "MY_21", type: type1, features: [featureFP] },
+  { id: 20, name: "R_20", type: type2, features: [featureFP] },
+  { id: 21, name: "V_20", type: type1, features: [featureFP,featureHH] },
+  { id: 22, name: "VDS_21", type: type1, features: [featureFP,featureMP,featureFI] },
 
-  { id: 3, name: "Model 3", type: typeB, features: [] },
-  { id: 4, name: "Model 4", type: typeB, features: [] },
-  { id: 5, name: "Model 5", type: typeB, features: [] },
-  { id: 6, name: "Model 6", type: typeB, features: [] },
-
-  { id: 7, name: "Model 7", type: typeC, features: [featureA] },
-  { id: 8, name: "Model 8", type: typeC, features: [featureB] },
-  { id: 9, name: "Model 9", type: typeC, features: [featureC] },
-  { id: 10, name: "Model 10", type: typeC, features: [] },
-  { id: 11, name: "Model 11", type: typeC, features: [] },
-  { id: 12, name: "Model 12", type: typeC, features: [] },
-  { id: 13, name: "Model 13", type: typeC, features: [] },
-  { id: 14, name: "Model 14", type: typeC, features: [] },
-  { id: 15, name: "Model 15", type: typeC, features: [] },
-  { id: 16, name: "Model 16", type: typeC, features: [featureA, featureB] },
-  { id: 17, name: "Model 17", type: typeC, features: [featureC] },
-  { id: 18, name: "Model 18", type: typeC, features: [featureA] },
-  { id: 19, name: "Model 19", type: typeC, features: [featureA, featureC] },
-  { id: 20, name: "Model 20", type: typeC, features: [featureB] },
-  { id: 21, name: "Model 21", type: typeC, features: [featureC] },
-  { id: 22, name: "Model 22", type: typeC, features: [featureA] },
-  { id: 23, name: "Model 23", type: typeC, features: [featureA] },
-  { id: 24, name: "Model 24", type: typeC, features: [featureA] },
-  { id: 25, name: "Model 25", type: typeC, features: [featureB] },
-  { id: 26, name: "Model 26", type: typeC, features: [featureC] },
-  { id: 27, name: "Model 27", type: typeC, features: [featureA] },
-  { id: 28, name: "Model 28", type: typeC, features: [featureA] },
-  { id: 29, name: "Model 29", type: typeC, features: [featureB] },
-  { id: 30, name: "Model 30", type: typeC, features: [featureC] },
-  { id: 31, name: "Model 31", type: typeC, features: [featureA] },
-  { id: 32, name: "Model 32", type: typeC, features: [featureA] },
-  { id: 33, name: "Model 33", type: typeC, features: [featureB] },
-  { id: 34, name: "Model 34", type: typeC, features: [featureC] },
 ]);
 
 const shocks = ref<Shock[]>([
-  { id: 1, name: "Shock 1" },
-  { id: 2, name: "Shock 2" },
-  { id: 3, name: "Shock 3" },
+  { id: 1, name: "Model-specific Initial Infections" },
+  { id: 2, name: "Low Initial Infections" },
+  { id: 3, name: "Medium Initial Infections" },
+  { id: 4, name: "High Initial Infections" },
 ]);
 
 const variables = ref<Variable[]>([
-  { id: 1, name: "Variable 1" },
-  { id: 2, name: "Variable 2" },
-  { id: 3, name: "Variable 3" },
+  { id: 1, name: "Cosnumption" },
+  { id: 2, name: "Labour" },
+  { id: 3, name: "Output" },
+  { id: 4, name: "Susceptibles" },
+  { id: 5, name: "Infected" },
+  { id: 6, name: "Recovered" },
+  { id: 7, name: "Deaths" },
 ]);
 
 export enum Grouping {

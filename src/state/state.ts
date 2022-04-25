@@ -18,7 +18,7 @@ const modelFeatures = ref([featureFP, featureMP, featureFI,featureFE,featureMC,f
 const type0 = "Reduced From";
 const type1 = "One-way Interaction";
 const type2 = "Two-way Interaction";
-const modelTypes = ref([type0, type1, type2]);
+const modelTypes = ref([type2, type1, type0]);
 
 const models = ref<Model[]>([
   { id: 1, name: "A_20", type: type1, features: [] },
@@ -54,7 +54,7 @@ const shocks = ref<Shock[]>([
 ]);
 
 const variables = ref<Variable[]>([
-  { id: 1, name: "Cosnumption" },
+  { id: 1, name: "Consumption" },
   { id: 2, name: "Labour" },
   { id: 3, name: "Output" },
   { id: 4, name: "Susceptibles" },

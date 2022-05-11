@@ -1,67 +1,30 @@
-import { computed, ref } from "vue";
+import { computed, ref, shallowReactive, shallowRef, watch, watchEffect } from "vue";
 import { Model } from "./model";
 import { Shock } from "./shock";
 import { Variable } from "./variable";
+import { fetchData } from "./api";
+import { loadResult } from "./results";
 
-const featureA = "Feature A";
-const featureB = "Feature B";
-const featureC = "Feature C";
-const modelFeatures = ref([featureA, featureB, featureC]);
-
-const typeA = "TYPE A";
-const typeB = "TYPE B";
-const typeC = "TYPE C";
-const modelTypes = ref([typeA, typeB, typeC]);
-
-const models = ref<Model[]>([
-  { id: 1, name: "Model 1", type: typeA, features: [] },
-  { id: 2, name: "Model 2", type: typeA, features: [] },
-
-  { id: 3, name: "Model 3", type: typeB, features: [] },
-  { id: 4, name: "Model 4", type: typeB, features: [] },
-  { id: 5, name: "Model 5", type: typeB, features: [] },
-  { id: 6, name: "Model 6", type: typeB, features: [] },
-
-  { id: 7, name: "Model 7", type: typeC, features: [featureA] },
-  { id: 8, name: "Model 8", type: typeC, features: [featureB] },
-  { id: 9, name: "Model 9", type: typeC, features: [featureC] },
-  { id: 10, name: "Model 10", type: typeC, features: [] },
-  { id: 11, name: "Model 11", type: typeC, features: [] },
-  { id: 12, name: "Model 12", type: typeC, features: [] },
-  { id: 13, name: "Model 13", type: typeC, features: [] },
-  { id: 14, name: "Model 14", type: typeC, features: [] },
-  { id: 15, name: "Model 15", type: typeC, features: [] },
-  { id: 16, name: "Model 16", type: typeC, features: [featureA, featureB] },
-  { id: 17, name: "Model 17", type: typeC, features: [featureC] },
-  { id: 18, name: "Model 18", type: typeC, features: [featureA] },
-  { id: 19, name: "Model 19", type: typeC, features: [featureA, featureC] },
-  { id: 20, name: "Model 20", type: typeC, features: [featureB] },
-  { id: 21, name: "Model 21", type: typeC, features: [featureC] },
-  { id: 22, name: "Model 22", type: typeC, features: [featureA] },
-  { id: 23, name: "Model 23", type: typeC, features: [featureA] },
-  { id: 24, name: "Model 24", type: typeC, features: [featureA] },
-  { id: 25, name: "Model 25", type: typeC, features: [featureB] },
-  { id: 26, name: "Model 26", type: typeC, features: [featureC] },
-  { id: 27, name: "Model 27", type: typeC, features: [featureA] },
-  { id: 28, name: "Model 28", type: typeC, features: [featureA] },
-  { id: 29, name: "Model 29", type: typeC, features: [featureB] },
-  { id: 30, name: "Model 30", type: typeC, features: [featureC] },
-  { id: 31, name: "Model 31", type: typeC, features: [featureA] },
-  { id: 32, name: "Model 32", type: typeC, features: [featureA] },
-  { id: 33, name: "Model 33", type: typeC, features: [featureB] },
-  { id: 34, name: "Model 34", type: typeC, features: [featureC] },
-]);
+const content = ref<string>("");
+const modelFeatures = ref<string[]>([]);
+const modelTypes = ref<string[]>([]);
+const models = ref<Model[]>([]);
 
 const shocks = ref<Shock[]>([
-  { id: 1, name: "Shock 1" },
-  { id: 2, name: "Shock 2" },
-  { id: 3, name: "Shock 3" },
+  { name: "High_initial_infections" },
+  { name: "Low_initial_infections" },
+  { name: "Medium_initial_infections" },
+  { name: "Model_specific" },
 ]);
 
 const variables = ref<Variable[]>([
-  { id: 1, name: "Variable 1" },
-  { id: 2, name: "Variable 2" },
-  { id: 3, name: "Variable 3" },
+  { name: "Consumption" },
+  { name: "Labour" },
+  { name: "Output" },
+  { name: "Susceptibles" },
+  { name: "Infected" },
+  { name: "Recovered" },
+  { name: "Deaths" },
 ]);
 
 export enum Grouping {
@@ -71,6 +34,11 @@ export enum Grouping {
 
 const featureFilter = ref([]);
 const textFilter = ref("");
+const clearFilters = () => {
+  featureFilter.value = [];
+  textFilter.value = "";
+};
+
 const selectedModels = ref<Model[]>([]);
 const visibleModels = computed(() => {
   const lowercaseText = textFilter.value.toLowerCase();
@@ -113,13 +81,54 @@ const hasSelection = computed(() => {
 const grouping = ref<Grouping>(Grouping.Variable);
 const maxColumns = ref<number>(4);
 
+const loading = ref(true);
+const load = async () => {
+  try {
+    loading.value = true;
+
+    const data = await fetchData();
+
+    content.value = data.content;
+    models.value = data.models;
+    modelTypes.value = data.modelTypes;
+    modelFeatures.value = models.value
+      .flatMap((m) => m.features)
+      .filter((m, i, a) => i === a.indexOf(m))
+      .sort((a, b) => a.localeCompare(b));
+  } catch (e) {
+    console.error(e);
+    throw e;
+  } finally {
+    loading.value = false;
+  }
+};
+
+const results = {};
+
+watchEffect(async () => {
+  const models = selectedModels.value;
+  const shocks = selectedShocks.value;
+
+  for (const m of models) {
+    for (const s of shocks) {
+      loadResult(m.name, s.name)
+    }
+  }
+});
+
+const getData = () => {}
+
 export function useState() {
   return {
+    getData,
     maxColumns,
     grouping,
     textFilter,
     featureFilter,
-
+    clearFilters,
+    load,
+    loading,
+    content,
     models,
     modelTypes,
     modelFeatures,

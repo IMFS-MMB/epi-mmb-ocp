@@ -1,3 +1,3 @@
 <template>
-  <span class="text-xs cursor-pointer">Clear</span>
+  <span class="text-xs cursor-pointer hover:underline">Clear</span>
 </template>

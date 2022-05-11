@@ -5,20 +5,20 @@ import ClearButton from "./ClearButton.vue";
 import ModelFilters from "./ModelFilters.vue";
 import List from "./List.vue";
 import Popper from "vue3-popper";
+import ModelRefInline from "./ModelRefInline.vue";
 const { selectedModels, models: allModels, visibleModelsByType } = useState();
 </script>
 
 <template>
-  <div class="grid grid-cols-2 relative">
-    <div class="space-x-2 mb-4">
+  <div class="flex justify-between items-baseline">
+    <div class="space-x-2">
       <span>Models</span>
       <Counter :all="allModels" :selected="selectedModels" />
       <ClearButton @click="selectedModels = []" />
     </div>
-    <div class="absolute right-0 top-0">
-      <ModelFilters />
-    </div>
+    <ModelFilters />
   </div>
+
   <div class="grid gap-8 overflow-auto">
     <List
       class="model-list flex flex-col"
@@ -49,17 +49,16 @@ const { selectedModels, models: allModels, visibleModelsByType } = useState();
           </label>
           <template #content>
             <div
-              class="space-y-2 bg-white shadow-lg rounded-lg m-4 p-4 border border-1 border-gray-50"
+              class="space-y-2 bg-white shadow-lg rounded-lg m-4 p-4 border border-1 border-gray-50 max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl"
             >
-              <h3 class="text-lg">{{ model.name }}</h3>
-              <hr class="my-2" />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquid consequuntur dolore.
-              </p>
-              <p>Accusantium alias, aliquam aperiam asperiores atque</p>
+<!--              <h3 class="text-lg">{{ model.name }}</h3>-->
+<!--              <hr class="my-2" />-->
 
-              <p class="italic">Accusantium aliquid dolore dolorem</p>
+              <div v-html="model.teaser"/>
+
+              <p>
+                <ModelRefInline :model="model"/>
+              </p>
             </div>
           </template>
         </Popper>

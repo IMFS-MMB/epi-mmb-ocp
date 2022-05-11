@@ -1,12 +1,20 @@
+<script setup lang="ts">
+import { useState } from "../state/state";
+
+const { content } = useState();
+</script>
+
 <template>
-  <div class="flex-grow relative box-border">
+  <div class="welcome flex-grow self-stretch relative box-border">
     <div
       class="absolute w-full h-full flex justify-center items-center box-border select-none"
     >
       <img src="/logo.svg" class="w-1/2 opacity-50" />
     </div>
 
-    <div class="p-8 bg-transparent relative z-1 space-y-4">
+    <div class="p-8 bg-transparent relative z-1 prose !max-w-full" v-html="content"></div>
+
+<!--    <div class="p-8 bg-transparent relative z-1 space-y-4">
       <h3 class="text-2xl text-gray-900 mb-4">Epi MMB OCP</h3>
 
       <p>
@@ -75,6 +83,14 @@
         modi nostrum odio perspiciatis, quia sit ut voluptas! Accusantium eum
         exercitationem odit veritatis?
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
+
+<style>
+  .styled h3 {
+    @apply text-2xl text-gray-900 mb-4;
+  }
+
+
+</style>

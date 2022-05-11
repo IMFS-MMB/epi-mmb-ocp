@@ -15,9 +15,19 @@ interface Section {
 }
 
 Highcharts.setOptions({
-  chart: { backgroundColor: "transparent", height: 300 },
-  yAxis: {
-    title: { text: "" },
+  chart: {
+    backgroundColor: "transparent",
+    height: 300,
+    marginLeft: 60,
+    marginRight: 20,
+  },
+  xAxis: {
+    title: {
+      text: "Time",
+      style: {
+        fontSize: "10px",
+      },
+    },
   },
   pane: {
     background: [{ backgroundColor: "transparent" }],
@@ -31,6 +41,7 @@ Highcharts.setOptions({
       },
     },
   },
+  // credits: { enabled: false },
   legend: { enabled: false },
   exporting: {
     libURL: "/vendor/",
@@ -63,13 +74,38 @@ const {
 const makeCharts = (shock: Shock): Charts => {
   const mockData = () => new Array(20).fill(null).map(() => Math.random());
 
+  const TITLE_OPTIONS = {
+    reserveSpace: true,
+    style: {
+      fontSize: "10px",
+      whiteSpace: "nowrap",
+    },
+    margin: 12,
+  };
+
+  const TITLE1 = "% deviation from Steady State";
+  const TITLE2 = "% of population";
+
   switch (grouping.value) {
     case Grouping.Variable:
       return selectedVariables.value.map((v) => {
+        const yTitle = ["Consumption", "Labour", "Output"].includes(v.name)
+          ? TITLE1
+          : TITLE2;
+
         return {
+          yAxis: [
+            {
+              title: {
+                ...TITLE_OPTIONS,
+                text: yTitle,
+              },
+            },
+          ],
           title: { text: v.name },
           series: selectedModels.value.map((m, i) => {
             return {
+              yAxis: 0,
               type: "spline",
               colorIndex: i,
               name: m.name,
@@ -82,9 +118,25 @@ const makeCharts = (shock: Shock): Charts => {
     case Grouping.Model:
       return selectedModels.value.map((m) => {
         return {
+          yAxis: [
+            {
+              title: {
+                ...TITLE_OPTIONS,
+                text: TITLE1,
+              },
+            },
+            {
+              title: {
+                ...TITLE_OPTIONS,
+                text: TITLE2,
+              },
+              opposite: true,
+            },
+          ],
           title: { text: m.name },
           series: selectedVariables.value.map((v, i) => {
             return {
+              yAxis: 0,
               type: "spline",
               colorIndex: i,
               name: v.name,
@@ -202,7 +254,11 @@ const container = ref();
           style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))"
         ></div>
 
-        <Grid :cols="section.charts.length" :maxCols="maxColumns">
+        <Grid
+          class="gap-x-4"
+          :cols="section.charts.length"
+          :maxCols="maxColumns"
+        >
           <Chart v-for="options of section.charts" :options="options"></Chart>
         </Grid>
       </div>

@@ -51,14 +51,11 @@ const { selectedModels, models: allModels, visibleModelsByType } = useState();
             <div
               class="space-y-2 bg-white shadow-lg rounded-lg m-4 p-4 border border-1 border-gray-50 max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl"
             >
-<!--              <h3 class="text-lg">{{ model.name }}</h3>-->
-<!--              <hr class="my-2" />-->
-
-              <div v-html="model.teaser"/>
-
               <p>
                 <ModelRefInline :model="model"/>
               </p>
+              <div v-html="model.teaser"/>
+
             </div>
           </template>
         </Popper>

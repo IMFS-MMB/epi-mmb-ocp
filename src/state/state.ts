@@ -1,4 +1,4 @@
-import { computed, ref, shallowReactive, shallowRef, watch, watchEffect } from "vue";
+import { computed, reactive, ref, watchEffect } from "vue";
 import { Model } from "./model";
 import { Shock } from "./shock";
 import { Variable } from "./variable";
@@ -9,23 +9,8 @@ const content = ref<string>("");
 const modelFeatures = ref<string[]>([]);
 const modelTypes = ref<string[]>([]);
 const models = ref<Model[]>([]);
-
-const shocks = ref<Shock[]>([
-  { name: "High_initial_infections" },
-  { name: "Low_initial_infections" },
-  { name: "Medium_initial_infections" },
-  { name: "Model_specific" },
-]);
-
-const variables = ref<Variable[]>([
-  { name: "Consumption" },
-  { name: "Labour" },
-  { name: "Output" },
-  { name: "Susceptibles" },
-  { name: "Infected" },
-  { name: "Recovered" },
-  { name: "Deaths" },
-]);
+const shocks = ref<Shock[]>([]);
+const variables = ref<Variable[]>([]);
 
 export enum Grouping {
   Variable,
@@ -90,6 +75,8 @@ const load = async () => {
 
     content.value = data.content;
     models.value = data.models;
+    shocks.value = data.shocks;
+    variables.value = data.variables;
     modelTypes.value = data.modelTypes;
     modelFeatures.value = models.value
       .flatMap((m) => m.features)
@@ -103,20 +90,34 @@ const load = async () => {
   }
 };
 
-const results = {};
+const results = reactive({} as any);
 
+/**
+ * When model/shock selection changes, fetch unavailable data
+ */
 watchEffect(async () => {
   const models = selectedModels.value;
   const shocks = selectedShocks.value;
 
   for (const m of models) {
     for (const s of shocks) {
-      loadResult(m.name, s.name)
+      if (results?.[m.name]?.[s.name] !== undefined) {
+        continue;
+      }
+
+      const result = await loadResult(m.name, s.name);
+
+      if (result) {
+        results[m.name] ??= {};
+        results[m.name][s.name] ??= result;
+      }
     }
   }
 });
 
-const getData = () => {}
+const getData = (model: string, shock: string, variable: string) => {
+  return results[model]?.[shock]?.[variable] ?? null;
+};
 
 export function useState() {
   return {

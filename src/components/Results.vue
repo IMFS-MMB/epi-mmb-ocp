@@ -18,7 +18,7 @@ Highcharts.setOptions({
   chart: {
     backgroundColor: "transparent",
     height: 300,
-    marginLeft: 60,
+    marginLeft: 70,
     marginRight: 20,
   },
   xAxis: {
@@ -64,6 +64,7 @@ Highcharts.setOptions({
 });
 
 const {
+  getData,
   grouping,
   selectedVariables,
   selectedModels,
@@ -72,8 +73,6 @@ const {
 } = useState();
 
 const makeCharts = (shock: Shock): Charts => {
-  const mockData = () => new Array(20).fill(null).map(() => Math.random());
-
   const TITLE_OPTIONS = {
     reserveSpace: true,
     style: {
@@ -109,7 +108,7 @@ const makeCharts = (shock: Shock): Charts => {
               type: "spline",
               colorIndex: i,
               name: m.name,
-              data: mockData(),
+              data: getData(m.name, shock.name, v.name),
             };
           }),
         };
@@ -140,7 +139,7 @@ const makeCharts = (shock: Shock): Charts => {
               type: "spline",
               colorIndex: i,
               name: v.name,
-              data: mockData(),
+              data: getData(m.name, shock.name, v.name),
             };
           }),
         };
@@ -235,8 +234,9 @@ const container = ref();
     class="flex-1 relative overflow-auto flex flex-col pt-4 bg-white rounded-lg"
   >
     <div class="absolute top-4 right-4 z-50">
-      <FullScreenButton :element="container"></FullScreenButton>
+      <FullScreenButton v-if="container" :element="container"></FullScreenButton>
     </div>
+
     <div
       v-if="legendOptions"
       class="px-4 sticky overflow-hidden rounded-lg top-0 z-10"

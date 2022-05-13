@@ -27,7 +27,6 @@ const { shocks, selectedShocks, visibleShocks } = useState();
     >
       <input
         class="text-ocp-500 focus:ring-ocp-500"
-        :id="`shock-` + shock.id"
         type="checkbox"
         :value="shock"
         v-model="selectedShocks"

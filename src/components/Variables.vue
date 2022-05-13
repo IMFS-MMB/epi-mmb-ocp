@@ -26,7 +26,6 @@ const { variables, selectedVariables, visibleVariables } = useState();
     >
       <input
         class="text-ocp-500 focus:ring-ocp-500"
-        :id="`variable-` + variable.id"
         type="checkbox"
         :value="variable"
         v-model="selectedVariables"

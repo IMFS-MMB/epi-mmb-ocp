@@ -6,6 +6,7 @@ import { Grouping, useState } from "../state/state";
 import { Shock } from "../state/shock";
 import Grid from "./Grid.vue";
 import FullScreenButton from "./FullScreenButton.vue";
+import DownloadButton from "./DownloadButton.vue";
 
 type Charts = Highcharts.Options[];
 
@@ -233,7 +234,8 @@ const container = ref();
     ref="container"
     class="flex-1 relative overflow-auto flex flex-col pt-4 bg-white rounded-lg"
   >
-    <div class="absolute top-4 right-4 z-50">
+    <div class="absolute top-4 right-4 z-50 flex items-center gap-2">
+      <DownloadButton/>
       <FullScreenButton v-if="container" :element="container"></FullScreenButton>
     </div>
 

@@ -64,9 +64,11 @@ Highcharts.setOptions({
   },
 });
 
+
 const {
   getData,
   grouping,
+  getModelTitle,
   selectedVariables,
   selectedModels,
   selectedShocks,
@@ -108,7 +110,7 @@ const makeCharts = (shock: Shock): Charts => {
               yAxis: 0,
               type: "spline",
               colorIndex: i,
-              name: m.name,
+              name: getModelTitle.value(m),
               data: getData(m.name, shock.name, v.name),
             };
           }),
@@ -133,7 +135,7 @@ const makeCharts = (shock: Shock): Charts => {
               opposite: true,
             },
           ],
-          title: { text: m.name },
+          title: { text: getModelTitle.value(m) },
           series: selectedVariables.value.map((v, i) => {
             return {
               yAxis: 0,
@@ -235,15 +237,19 @@ const container = ref();
     class="flex-1 relative overflow-auto flex flex-col pt-4 bg-white rounded-lg"
   >
     <div class="absolute top-4 right-4 z-50 flex items-center gap-2">
-      <DownloadButton/>
-      <FullScreenButton v-if="container" :element="container"></FullScreenButton>
+
     </div>
 
     <div
       v-if="legendOptions"
-      class="px-4 sticky overflow-hidden rounded-lg top-0 z-10"
+      class="px-4 pl-24 sticky rounded-lg top-0 z-10 flex gap-2 items-start"
     >
-      <Chart :options="legendOptions"></Chart>
+      <Chart class="flex-grow" :options="legendOptions"></Chart>
+      <DownloadButton />
+      <FullScreenButton
+        v-if="container"
+        :element="container"
+      ></FullScreenButton>
     </div>
     <div
       class="flex-1 overflow-auto pl-6 pr-3 mx-1 space-y-8 scrolling-shadows pb-8"

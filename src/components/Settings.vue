@@ -4,6 +4,37 @@
 
     <div>
       <div class="flex items-center justify-between">
+        <h2 class="text-sm text-gray-900">Name models by</h2>
+      </div>
+
+      <RadioGroup v-model="heading" class="mt-2">
+        <div class="grid grid-cols-3 gap-3 sm:grid-cols-2">
+          <RadioGroupOption
+            as="template"
+            v-for="option in headingOptions"
+            :key="option.name"
+            :value="option.value"
+            v-slot="{ active, checked }"
+          >
+            <div
+              :class="[
+                checked
+                  ? 'bg-white-500 border-2 border-ocp-500  text-white bg-ocp-500'
+                  : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50',
+                'border !ring-0 outline-0 rounded-md py-3 px-3 flex items-center justify-center text-sm   sm:flex-1 cursor-pointer',
+              ]"
+            >
+              <RadioGroupLabel as="p" class="select-none whitespace-nowrap">
+                {{ option.name }}
+              </RadioGroupLabel>
+            </div>
+          </RadioGroupOption>
+        </div>
+      </RadioGroup>
+    </div>
+
+    <div>
+      <div class="flex items-center justify-between">
         <h2 class="text-sm text-gray-900">Group by</h2>
       </div>
 
@@ -69,10 +100,14 @@
 
 <script setup lang="ts">
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
-import { Grouping, useState } from "../state/state";
+import { Grouping, Heading, useState } from "../state/state";
 
-const { grouping, maxColumns } = useState();
+const { grouping, heading,  maxColumns } = useState();
 
+const headingOptions = [
+  { name: "Short Name", value: Heading.Short },
+  { name: "Reference", value: Heading.Reference },
+];
 const groupingOptions = [
   { name: "Variable", value: Grouping.Variable },
   { name: "Model", value: Grouping.Model },

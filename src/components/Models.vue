@@ -6,7 +6,7 @@ import ModelFilters from "./ModelFilters.vue";
 import List from "./List.vue";
 import Popper from "vue3-popper";
 import ModelRefInline from "./ModelRefInline.vue";
-const { selectedModels, models: allModels, visibleModelsByType } = useState();
+const { selectedModels, models: allModels, visibleModelsByType, getModelTitle } = useState();
 </script>
 
 <template>
@@ -45,7 +45,7 @@ const { selectedModels, models: allModels, visibleModelsByType } = useState();
               :value="model"
               v-model="selectedModels"
             />
-            <span>{{ model.name }}</span>
+            <span>{{getModelTitle(model)}}</span>
           </label>
           <template #content>
             <div

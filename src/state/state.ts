@@ -17,6 +17,11 @@ export enum Grouping {
   Model,
 }
 
+export enum Heading {
+  Short,
+  Reference,
+}
+
 const featureFilter = ref([]);
 const textFilter = ref("");
 const clearFilters = () => {
@@ -63,6 +68,7 @@ const hasSelection = computed(() => {
   );
 });
 
+const heading = ref<Heading>(Heading.Reference);
 const grouping = ref<Grouping>(Grouping.Variable);
 const maxColumns = ref<number>(4);
 
@@ -119,11 +125,20 @@ const getData = (model: string, shock: string, variable: string) => {
   return results[model]?.[shock]?.[variable] ?? null;
 };
 
+const getModelTitle = computed(() =>
+  heading.value === Heading.Short
+    ? (m: Model) => m.name
+    : (m: Model) => `${m.authors} (${m.year})`
+);
+
+
 export function useState() {
   return {
     getData,
+    getModelTitle,
     maxColumns,
     grouping,
+    heading,
     textFilter,
     featureFilter,
     clearFilters,

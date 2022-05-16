@@ -1,6 +1,6 @@
 {
 "model":"HHK_20",
-"shock":"Model_specific",
+"shock":"Model-specific Initial Infections",
 "data":{
 "Consumption":[-0.0014534546750755979,
 -0.001710297994773419,

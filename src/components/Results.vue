@@ -42,7 +42,7 @@ Highcharts.setOptions({
       },
     },
   },
-  // credits: { enabled: false },
+  credits: { enabled: false },
   legend: { enabled: false },
   exporting: {
     libURL: "/vendor/",
@@ -60,6 +60,10 @@ Highcharts.setOptions({
       legend: {
         enabled: true,
       },
+      credits: {
+        enabled: true,
+        text: 'Source: Epi-MMB',
+      }
     },
   },
 });

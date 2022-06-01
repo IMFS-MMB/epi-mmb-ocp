@@ -5,8 +5,13 @@ import ClearButton from "./ClearButton.vue";
 import ModelFilters from "./ModelFilters.vue";
 import List from "./List.vue";
 import Popper from "vue3-popper";
-import ModelRefInline from "./ModelRefInline.vue";
-const { selectedModels, models: allModels, visibleModelsByType, getModelTitle } = useState();
+
+const {
+  selectedModels,
+  models: allModels,
+  visibleModelsByType,
+  getModelTitle,
+} = useState();
 </script>
 
 <template>
@@ -45,17 +50,21 @@ const { selectedModels, models: allModels, visibleModelsByType, getModelTitle } 
               :value="model"
               v-model="selectedModels"
             />
-            <span>{{getModelTitle(model)}}</span>
+            <span>{{ getModelTitle(model) }}</span>
           </label>
           <template #content>
             <div
               class="space-y-2 bg-white shadow-lg rounded-lg m-4 p-4 border border-1 border-gray-50 max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl"
             >
-              <p>
-                <ModelRefInline :model="model"/>
-              </p>
-              <div v-html="model.teaser"/>
+              <div class="mb-4">
+                {{ model.authors || "unknown author" }}
+                ({{ model.year || "unknown year" }}), {{ model.title }},
+                <span class="italic">{{
+                  model.journal || "unknown journal"
+                }}</span>
+              </div>
 
+              <div v-html="model.teaser" />
             </div>
           </template>
         </Popper>

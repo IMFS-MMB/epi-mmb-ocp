@@ -19,7 +19,8 @@ jobs:
 
       - run: npm i
       - run: npm run build:pages
-
+        env:
+          VITE_COMMIT_HASH: ${{ github.sha }}
         # todo: switch to official pages action when it's prod ready (https://github.com/actions/deploy-pages)
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3

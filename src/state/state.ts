@@ -111,12 +111,12 @@ watchEffect(async () => {
         continue;
       }
 
-      const result = await loadResult(m.name, s.name);
-
-      if (result) {
-        results[m.name] ??= {};
-        results[m.name][s.name] ??= result;
-      }
+      loadResult(m.name, s.name).then((result) => {
+        if (result) {
+          results[m.name] ??= {};
+          results[m.name][s.name] ??= result;
+        }
+      });
     }
   }
 });
@@ -130,7 +130,6 @@ const getModelTitle = computed(() =>
     ? (m: Model) => m.name
     : (m: Model) => `${m.authors} (${m.year})`
 );
-
 
 export function useState() {
   return {

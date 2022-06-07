@@ -6,4 +6,6 @@ export interface Model {
   teaser: string;
   authors: string;
   year: string;
+  title: string;
+  journal: string;
 }

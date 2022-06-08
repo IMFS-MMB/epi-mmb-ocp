@@ -1,6 +1,6 @@
 {
 "model":"AAL_20",
-"shock":"Model_specific",
+"shock":"Model-specific Initial Infections",
 "data":{
 "Consumption":[-0.020022461274600056,
 -0.02012352615186741,

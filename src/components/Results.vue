@@ -62,12 +62,11 @@ Highcharts.setOptions({
       },
       credits: {
         enabled: true,
-        text: 'Source: Epi-MMB',
-      }
+        text: "Source: Epi-MMB",
+      },
     },
   },
 });
-
 
 const {
   getData,
@@ -77,6 +76,7 @@ const {
   selectedModels,
   selectedShocks,
   maxColumns,
+  adjustedVariables,
 } = useState();
 
 const makeCharts = (shock: Shock): Charts => {
@@ -240,10 +240,6 @@ const container = ref();
     ref="container"
     class="flex-1 relative overflow-auto flex flex-col pt-4 bg-white rounded-lg"
   >
-    <div class="absolute top-4 right-4 z-50 flex items-center gap-2">
-
-    </div>
-
     <div
       v-if="legendOptions"
       class="px-4 pl-24 sticky rounded-lg top-0 z-10 flex gap-2 items-start"
@@ -255,6 +251,21 @@ const container = ref();
         :element="container"
       ></FullScreenButton>
     </div>
+
+    <div
+      v-if="adjustedVariables.length"
+      class="mx-6 mt-2 mb-4 p-4 bg-yellow-100 rounded border border-yellow-200 text-sm"
+    >
+      The Epi-MMB team adjusted some calculations to standardize variable
+      definitions:
+
+      <div class="flex flex-col mt-2">
+        <span v-for="{ variable, models } of adjustedVariables">
+          {{ variable }}: {{ models.join(", ") }}
+        </span>
+      </div>
+    </div>
+
     <div
       class="flex-1 overflow-auto pl-6 pr-3 mx-1 space-y-8 scrolling-shadows pb-8"
     >

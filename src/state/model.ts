@@ -8,4 +8,5 @@ export interface Model {
   year: string;
   title: string;
   journal: string;
+  adjusted: string[];
 }

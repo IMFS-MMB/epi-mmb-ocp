@@ -4,6 +4,7 @@ import { Shock } from "./shock";
 import { Variable } from "./variable";
 import { fetchData } from "./api";
 import { loadResult } from "./results";
+import { sortBy } from "lodash-es";
 
 const content = ref<string>("");
 const modelFeatures = ref<string[]>([]);
@@ -131,6 +132,22 @@ const getModelTitle = computed(() =>
     : (m: Model) => `${m.authors} (${m.year})`
 );
 
+const adjustedVariables = computed(() => {
+  const models = sortBy(selectedModels.value, "name");
+  const variables = sortBy(selectedVariables.value, "name");
+
+  return variables
+    .map((variable) => {
+      return {
+        variable: variable.name,
+        models: models
+          .filter((model) => model.adjusted.includes(variable.name))
+          .map((model) => model.name),
+      };
+    })
+    .filter((variable) => !!variable.models.length);
+});
+
 export function useState() {
   return {
     getData,
@@ -154,6 +171,8 @@ export function useState() {
     variables,
     visibleVariables,
     selectedVariables,
+
+    adjustedVariables,
 
     shocks,
     visibleShocks,

@@ -8,7 +8,7 @@ import Popper from "vue3-popper";
 
 const { shocks, selectedShocks, visibleShocks } = useState();
 
-const initialInfections = {
+const initialInfections: Record<string, string> = {
   "Low Initial Infections": ".005%",
   "Medium Initial Infections": ".01%",
   "High Initial Infections": ".025%",

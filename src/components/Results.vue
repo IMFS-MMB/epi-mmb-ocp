@@ -238,7 +238,7 @@ const container = ref();
 <template>
   <div
     ref="container"
-    class="flex-1 relative overflow-auto flex flex-col pt-4 bg-white rounded-lg"
+    class="flex-grow relative overflow-auto flex flex-col pt-4 bg-white rounded-lg"
   >
     <div
       v-if="legendOptions"

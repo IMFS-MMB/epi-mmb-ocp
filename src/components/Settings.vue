@@ -56,7 +56,7 @@
                 'border !ring-0 outline-0 rounded-md py-3 px-3 flex items-center justify-center text-sm   sm:flex-1 cursor-pointer',
               ]"
               >
-                <RadioGroupLabel as="p" class="select-none">
+                <RadioGroupLabel as="p" class="select-none ">
                   {{ option.name }}
                 </RadioGroupLabel>
               </div>

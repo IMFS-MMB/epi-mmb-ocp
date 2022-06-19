@@ -12,7 +12,7 @@
     "build:pages": "npm run build"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.5.0",
+    "@headlessui/vue": "^1.6.4",
     "@heroicons/vue": "^1.0.6",
     "@types/file-saver": "^2.0.5",
     "file-saver": "^2.0.5",

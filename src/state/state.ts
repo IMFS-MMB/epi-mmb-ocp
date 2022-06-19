@@ -148,6 +148,8 @@ const adjustedVariables = computed(() => {
     .filter((variable) => !!variable.models.length);
 });
 
+const slideOverVisible = ref(false);
+
 export function useState() {
   return {
     getData,
@@ -179,5 +181,7 @@ export function useState() {
     selectedShocks,
 
     hasSelection,
+
+    slideOverVisible,
   };
 }

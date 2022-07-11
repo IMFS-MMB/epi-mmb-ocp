@@ -134,18 +134,19 @@ const getModelTitle = computed(() =>
 
 const adjustedVariables = computed(() => {
   const models = sortBy(selectedModels.value, "name");
-  const variables = sortBy(selectedVariables.value, "name");
+  const variables = selectedVariables.value;
 
-  return variables
-    .map((variable) => {
-      return {
-        variable: variable.name,
-        models: models
-          .filter((model) => model.adjusted.includes(variable.name))
-          .map((model) => model.name),
-      };
-    })
-    .filter((variable) => !!variable.models.length);
+  return models
+    .map((model) => ({
+      model: getModelTitle.value(model),
+      variables: sortBy(model.adjusted).filter(
+        (adjusted) =>
+          !!variables.find((variable) =>
+            adjusted.toLowerCase().startsWith(variable.name.toLowerCase())
+          )
+      ),
+    }))
+    .filter(({ variables }) => !!variables.length);
 });
 
 const slideOverVisible = ref(false);

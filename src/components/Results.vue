@@ -310,8 +310,8 @@ const container = ref();
       definitions:
 
       <div class="flex flex-col mt-2">
-        <span v-for="{ variable, models } of adjustedVariables">
-          {{ variable }}: {{ models.join(", ") }}
+        <span v-for="a of adjustedVariables">
+          {{ a.model }}: {{ a.variables.join(", ") }}
         </span>
       </div>
     </div>

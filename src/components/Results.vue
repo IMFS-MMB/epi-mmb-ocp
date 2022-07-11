@@ -91,6 +91,8 @@ const makeCharts = (shock: Shock): Charts => {
 
   const TITLE1 = "% deviation from Steady State";
   const TITLE2 = "% of population";
+  const CHART_HEIGHT = 300;
+  const LEGEND_ITEM_HEIGHT = 15;
 
   switch (grouping.value) {
     case Grouping.Variable:
@@ -100,6 +102,15 @@ const makeCharts = (shock: Shock): Charts => {
           : TITLE2;
 
         return {
+          exporting: {
+            chartOptions: {
+              chart: {
+                height:
+                  CHART_HEIGHT +
+                  LEGEND_ITEM_HEIGHT * selectedModels.value.length,
+              },
+            },
+          },
           yAxis: [
             {
               title: {
@@ -124,6 +135,15 @@ const makeCharts = (shock: Shock): Charts => {
     case Grouping.Model:
       return selectedModels.value.map((m) => {
         return {
+          exporting: {
+            chartOptions: {
+              chart: {
+                height:
+                  CHART_HEIGHT +
+                  LEGEND_ITEM_HEIGHT * selectedVariables.value.length,
+              },
+            },
+          },
           yAxis: [
             {
               title: {
@@ -183,6 +203,32 @@ const toggleSeries = (name?: string) => {
     });
 };
 
+Highcharts.addEvent(Highcharts.Legend, "afterRender", function (e) {
+  const PADDING = 10;
+  const MIN_HEIGHT = 40;
+
+  const legendEl = e?.target.group.element;
+
+  if (!legendEl) {
+    return;
+  }
+
+  if (!document.querySelector(".ocp-legend-container")?.contains(legendEl)) {
+    return;
+  }
+
+  const targetHeight = Math.max(
+    Math.ceil(legendEl?.getBoundingClientRect?.().height ?? 0) + PADDING,
+    MIN_HEIGHT
+  );
+  const actualHeight = legendChartHeight.value;
+
+  if (targetHeight && targetHeight !== actualHeight) {
+    legendChartHeight.value = targetHeight;
+  }
+});
+
+const legendChartHeight = ref(50);
 const legendOptions = computed(() => {
   const options = sections?.value?.[0]?.charts?.[0];
 
@@ -206,7 +252,7 @@ const legendOptions = computed(() => {
     series,
 
     credits: { enabled: false },
-    chart: { height: 50 },
+    chart: { height: legendChartHeight.value },
     exporting: { enabled: false },
     title: {
       floating: true,
@@ -219,6 +265,7 @@ const legendOptions = computed(() => {
       visible: false,
     },
     legend: {
+      navigation: { enabled: false },
       margin: 0,
       padding: 0,
       verticalAlign: "middle",
@@ -244,7 +291,10 @@ const container = ref();
       v-if="legendOptions"
       class="px-4 pl-24 sticky rounded-lg top-0 z-10 flex gap-2 items-start"
     >
-      <Chart class="flex-grow" :options="legendOptions"></Chart>
+      <Chart
+        class="flex-grow ocp-legend-container"
+        :options="legendOptions"
+      ></Chart>
       <DownloadButton />
       <FullScreenButton
         v-if="container"

@@ -34,12 +34,12 @@ const { hasSelection, slideOverVisible } = useState();
       <MenuIcon class="h-4 w-4 m-2" />
     </div>
 
-    <Panel class="hidden landscape:xl:flex" style="min-width: 250px">
+    <Panel class="hidden landscape:xl:flex flex-none" style="min-width: 250px">
       <Models class="min-h-0"></Models>
     </Panel>
 
     <div
-      class="hidden landscape:xl:grid grid-cols-1 gap-4 2xl:gap-8 min-w-min"
+      class="hidden landscape:xl:grid grid-cols-1 gap-4 2xl:gap-8 min-w-min flex-none"
       style="min-width: 250px"
     >
       <Panel class="min-h-0"><Shocks /></Panel>

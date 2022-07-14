@@ -317,7 +317,7 @@ const container = ref();
     <div
       class="flex-1 overflow-auto pl-6 pr-3 mx-1 space-y-8 scrolling-shadows pb-8"
     >
-      <div v-for="section of sections">
+      <div v-for="section of sections" :key="section.title">
         <div class="text-lg">{{ section.title }}</div>
         <hr class="mb-4" />
         <div

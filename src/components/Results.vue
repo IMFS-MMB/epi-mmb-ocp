@@ -30,9 +30,6 @@ Highcharts.setOptions({
       },
     },
   },
-  pane: {
-    background: [{ backgroundColor: "transparent" }],
-  },
   plotOptions: {
     series: {
       lineWidth: 4,
@@ -57,6 +54,7 @@ Highcharts.setOptions({
       },
     },
     chartOptions: {
+      chart: { backgroundColor: 'white' },
       legend: {
         enabled: true,
       },

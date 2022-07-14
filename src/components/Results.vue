@@ -60,7 +60,7 @@ Highcharts.setOptions({
       },
       credits: {
         enabled: true,
-        text: "Source: Epi-MMB",
+        text: "Source: epi-mmb.com",
       },
     },
   },

@@ -4,6 +4,7 @@ import Counter from "./Counter.vue";
 import ClearButton from "./ClearButton.vue";
 import List from "./List.vue";
 import Popper from "vue3-popper";
+import { Shock } from "../state/shock";
 
 const { shocks, selectedShocks, visibleShocks } = useState();
 
@@ -12,6 +13,12 @@ const initialInfections: Record<string, string> = {
   "Medium Initial Infections": ".1%",
   "High Initial Infections": ".25%",
 };
+
+const onChange = (ev: Event, shock: Shock) => {
+  const checkbox = ev.target as HTMLInputElement;
+
+  selectedShocks.value = checkbox.checked ? [shock] : [];
+}
 </script>
 <template>
   <List class="shock-list">
@@ -38,7 +45,7 @@ const initialInfections: Record<string, string> = {
             class="text-ocp-500 focus:ring-ocp-500"
             type="checkbox"
             :checked="selectedShocks[0] === shock"
-            @change="selectedShocks = $event.target.checked ? [shock] : []"
+            @input="onChange($event, shock)"
           />
           <span>{{ shock.name }}</span>
         </label>

@@ -3,7 +3,6 @@ import { useState } from "../state/state";
 import Counter from "./Counter.vue";
 import ClearButton from "./ClearButton.vue";
 import List from "./List.vue";
-import SelectAllButton from "./SelectAllButton.vue";
 import Popper from "vue3-popper";
 
 const { shocks, selectedShocks, visibleShocks } = useState();
@@ -21,7 +20,6 @@ const initialInfections: Record<string, string> = {
         <span>Shocks</span>
         <Counter :all="shocks" :selected="selectedShocks" />
         <div class="flex flex-wrap items-baseline gap-2">
-          <SelectAllButton @click="selectedShocks = shocks" />
           <ClearButton @click="selectedShocks = []" />
         </div>
       </div>
@@ -39,8 +37,8 @@ const initialInfections: Record<string, string> = {
           <input
             class="text-ocp-500 focus:ring-ocp-500"
             type="checkbox"
-            :value="shock"
-            v-model="selectedShocks"
+            :checked="selectedShocks[0] === shock"
+            @change="selectedShocks = $event.target.checked ? [shock] : []"
           />
           <span>{{ shock.name }}</span>
         </label>

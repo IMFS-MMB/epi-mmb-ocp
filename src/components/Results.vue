@@ -7,6 +7,7 @@ import { Shock } from "../state/shock";
 import Grid from "./Grid.vue";
 import FullScreenButton from "./FullScreenButton.vue";
 import DownloadButton from "./DownloadButton.vue";
+import { chartIsValid, seriesIsValid } from "../state/util";
 
 type Charts = Highcharts.Options[];
 
@@ -54,7 +55,7 @@ Highcharts.setOptions({
       },
     },
     chartOptions: {
-      chart: { backgroundColor: 'white' },
+      chart: { backgroundColor: "white" },
       legend: {
         enabled: true,
       },
@@ -187,6 +188,26 @@ const sections = computed(() => {
   return makeSections();
 });
 
+const hasMissingVariables = computed(() => {
+  const models = selectedModels.value;
+  const variables = selectedVariables.value;
+  const shocks = selectedShocks.value;
+
+  for (const model of models) {
+    for (const shock of shocks) {
+      for (const variable of variables) {
+        const data = getData(model.name, shock.name, variable.name);
+
+        if (data !== null && !seriesIsValid(data)) {
+          return true;
+        }
+      }
+    }
+  }
+
+  return false;
+});
+
 const toggleSeries = (name?: string) => {
   Highcharts.charts
     .flatMap((c) => c?.series ?? [])
@@ -301,16 +322,22 @@ const container = ref();
     </div>
 
     <div
-      v-if="adjustedVariables.length"
-      class="mx-6 mt-2 mb-4 p-4 bg-yellow-100 rounded border border-yellow-200 text-sm"
+      v-if="adjustedVariables.length || hasMissingVariables"
+      class="mx-6 mt-2 mb-4 p-4 bg-yellow-100 rounded border border-yellow-200 text-sm space-y-2"
     >
-      The Epi-MMB team adjusted some calculations to standardize variable
-      definitions:
+      <div v-if="hasMissingVariables">
+        Blank entries in graphs indicate that the model does not include this
+        variable.
+      </div>
+      <div v-if="adjustedVariables.length">
+        The Epi-MMB team adjusted some calculations to standardize variable
+        definitions:
 
-      <div class="flex flex-col mt-2">
-        <span v-for="a of adjustedVariables">
-          {{ a.model }}: {{ a.variables.join(", ") }}
-        </span>
+        <div class="flex flex-col mt-2">
+          <span v-for="a of adjustedVariables">
+            {{ a.model }}: {{ a.variables.join(", ") }}
+          </span>
+        </div>
       </div>
     </div>
 
@@ -327,10 +354,12 @@ const container = ref();
 
         <Grid
           class="gap-x-4"
-          :cols="section.charts.length"
+          :cols="section.charts.filter(c => chartIsValid(c)).length"
           :maxCols="maxColumns"
         >
-          <Chart v-for="options of section.charts" :options="options"></Chart>
+          <template v-for="options of section.charts">
+            <Chart v-if="chartIsValid(options)" :options="options"></Chart>
+          </template>
         </Grid>
       </div>
     </div>

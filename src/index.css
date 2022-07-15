@@ -10,7 +10,16 @@ body {
   background-color: rgba(42, 46, 50, 0.8);
   background-image: url("/logo.svg");
 
-  @apply bg-cover bg-fixed min-h-screen;
+  @apply bg-cover bg-fixed;
+}
+
+/* using height: 100vh on body isn't reliable on mobile */
+#app, .cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 input[type="checkbox"] {

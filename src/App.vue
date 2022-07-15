@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <Transition>
-    <div v-if="loading" class="fixed w-screen h-screen flex justify-center items-center" style="padding-bottom:30vh;">
+    <div v-if="loading" class="absolute top-0 right-0 bottom-0 left-0 flex justify-center items-center" style="padding-bottom:30vh;">
       <Spinner class="w-1/2 h-1/2" color="#5b8c8c"/>
     </div>
     <Ocp v-else-if="!loading"></Ocp>

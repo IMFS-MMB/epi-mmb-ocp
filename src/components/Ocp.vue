@@ -26,7 +26,7 @@ const { hasSelection, slideOverVisible } = useState();
     </div>
   </SlideOver>
 
-  <div class="h-screen overflow-hidden p-4 2xl:p-8 flex gap-4 2xl:gap-8">
+  <div class="h-full overflow-hidden p-4 2xl:p-8 flex gap-4 2xl:gap-8">
     <div
       class="flex landscape:xl:hidden justify-center items-center rounded-r-lg shadow-lg bg-white hover:bg-gray-100 select-none cursor-pointer -ml-4 2xl:-ml-8"
       @click="slideOverVisible = true"

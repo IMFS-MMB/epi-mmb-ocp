@@ -96,7 +96,7 @@ const makeCharts = (shock: Shock): Charts => {
   switch (grouping.value) {
     case Grouping.Variable:
       return selectedVariables.value.map((v) => {
-        const yTitle = ["Consumption", "Labour", "Output"].includes(v.name)
+        const yTitle = ["Consumption", "Labour", "Output", "Interest" , "Inflation", "Investment"].includes(v.name)
           ? TITLE1
           : TITLE2;
 

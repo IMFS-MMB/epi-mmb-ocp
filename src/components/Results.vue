@@ -90,7 +90,6 @@ const makeCharts = (shock: Shock): Charts => {
 
   const TITLE1 = "% deviation from Steady State";
   const TITLE2 = "% of population";
-  const TITLE3 = "point %";
 
   const CHART_HEIGHT = 300;
   const LEGEND_ITEM_HEIGHT = 15;
@@ -98,8 +97,8 @@ const makeCharts = (shock: Shock): Charts => {
   switch (grouping.value) {
     case Grouping.Variable:
       return selectedVariables.value.map((v) => {
-        const yTitle = ["Consumption", "Labour", "Output", "Investment"].includes(v.name) ? TITLE1
-          : yTitle = [ "Interest" , "Inflation"].includes(v.name) ? TITLE3
+        const yTitle = ["Consumption", "Labour", "Output","Interest" , "Inflation", "Investment"].includes(v.name) 
+          ? TITLE1
           : TITLE2;
 
         return {

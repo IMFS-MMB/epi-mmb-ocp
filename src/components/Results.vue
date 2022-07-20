@@ -98,11 +98,17 @@ const makeCharts = (shock: Shock): Charts => {
   switch (grouping.value) {
     case Grouping.Variable:
       return selectedVariables.value.map((v) => {
-        const yTitle = ["Consumption", "Labour", "Output","Investment"].includes(v.name) 
-          ? TITLE1
-          : const yTitle = ["Interest","Inflation"].includes(v.name)
-            ? TITLE3
-            : TITLE2;
+      if (["Consumption", "Labour", "Output","Investment"].includes(v.name) ) {
+      const yTitle = TITLE1
+      //  block of code to be executed if condition1 is true
+      } else if (["Interest","Inflation"].includes(v.name)) {
+      //  block of code to be executed if the condition1 is false and condition2 is true
+      const yTitle = TITLE3
+      } else {
+      //  block of code to be executed if the condition1 is false and condition2 is false
+      const yTitle = TITLE2
+      }
+
 
         return {
           exporting: {

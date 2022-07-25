@@ -100,7 +100,7 @@ const makeCharts = (shock: Shock): Charts => {
       return selectedVariables.value.map((v) => {
        const yTitle = ["Consumption", "Labour", "Output","Investment"].includes(v.name) 
           ? TITLE1
-          : ["Interest" , "Inflation"].includes(v.name) 
+          : ["Nominal Interest Rate" , "Inflation"].includes(v.name) 
           ? TITLE3
           : TITLE2;
 

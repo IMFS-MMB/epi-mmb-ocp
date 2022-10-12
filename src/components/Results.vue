@@ -90,7 +90,7 @@ const makeCharts = (shock: Shock): Charts => {
 
   const TITLE1 = "% deviation from Steady State";
   const TITLE2 = "% of population";
-  const TITLE3 = "% point deviation";
+  const TITLE3 = "% point deviation from Steady State (annualized)";
 
   const CHART_HEIGHT = 300;
   const LEGEND_ITEM_HEIGHT = 15;
